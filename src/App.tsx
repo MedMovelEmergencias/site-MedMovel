@@ -1,35 +1,38 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// Caminho: src/App.tsx
+// Componente principal da aplicação que estrutura o layout da página
+import React from 'react';
+import Header from './components/Header/Header';
+import Hero from './components/Hero/Hero';
+import SobreNos from './components/SobreNos';
+import Servicos from './components/Servicos';
+import Contato from './components/Contato';
+import Footer from './components/Footer/Footer';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {/* Cabeçalho fixo com navegação e logo */}
+      <Header />
+      
+      {/* Conteúdo principal da página */}
+      <main>
+        {/* Seção hero com banner principal */}
+        <Hero />
+        
+        {/* Seção sobre a empresa */}
+        <SobreNos />
+        
+        {/* Seção de serviços oferecidos */}
+        <Servicos />
+        
+        {/* Seção de contato e localização */}
+        <Contato />
+      </main>
+      
+      {/* Rodapé com informações da empresa */}
+      <Footer />
     </>
   )
 }
 
-export default App
+export default App;
