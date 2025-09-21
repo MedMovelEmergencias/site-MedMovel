@@ -44,11 +44,11 @@ const Avatar: React.FC = () => {
         />
       </div>
       <div className={`transition-all duration-500 ease-in-out mb-12 md:mb-20 ${animandoSaida ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}>
-        <div className="bg-white text-gray-800 p-4 md:px-6 md:py-4 rounded-2xl shadow-xl max-w-[200px] md:max-w-xs border border-gray-200 relative">
+         <div className="bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 p-4 md:px-6 md:py-4 rounded-2xl shadow-xl max-w-[200px] md:max-w-xs border border-gray-200 dark:border-gray-600 relative">
           <p className="text-xs md:text-sm leading-relaxed font-medium text-center">
             {mensagensAvatar[mensagemAtual]?.texto}
           </p>
-          <div className="absolute -left-3 top-1/2 -translate-y-1/2 w-0 h-0 border-r-[16px] border-r-white border-t-8 border-t-transparent border-b-8 border-b-transparent"></div>
+          <div className="absolute -left-3 top-1/2 -translate-y-1/2 w-0 h-0 border-r-[16px] border-r-white dark:border-r-gray-700 border-t-8 border-t-transparent border-b-8 border-b-transparent"></div>
         </div>
       </div>
     </div>
