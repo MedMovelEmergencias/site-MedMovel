@@ -90,22 +90,29 @@ const Servicos: React.FC = () => {
           ))}
         </div>
 
-        {/* Seção de call-to-action final com destaque para contato */}
-        <div className="text-center mt-16">
-          <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 max-w-2xl mx-auto">
-            <h3 className="text-2xl font-bold text-primary-blue mb-4">
-              Precisa de ajuda? Estamos aqui para você!
-            </h3>
-            <p className="text-gray-600 mb-6">
-              Nossa equipe está disponível 24 horas para atender suas necessidades de emergência e transporte médico.
-            </p>
-            {/* Botão de contato com hover effects */}
-            <a 
-              href="#contato" 
-              className="inline-block bg-accent-red text-white px-8 py-3 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-red-600 hover:scale-105 hover:shadow-lg"
-            >
-              Entre em Contato
-            </a>
+        {/* --- NOVA SEÇÃO DE CTA --- */}
+        {/* Usamos um container de largura total com um gradiente para máximo destaque */}
+        <div className="mt-20">
+          <div className="container mx-auto">
+            <div className="relative rounded-2xl bg-gradient-to-r from-primary-blue via-blue-800 to-cyan-600 p-10 md:p-12 text-center text-white shadow-2xl overflow-hidden">
+              {/* Efeito de brilho sutil */}
+              <div className="absolute top-0 left-0 w-1/2 h-full bg-white/10 skew-x-[-30deg] -translate-x-full animate-[shimmer_4s_infinite]"></div>
+
+              <div className="relative z-10">
+                <h3 className="text-3xl md:text-4xl font-extrabold mb-4">
+                  Precisa de Ajuda? Estamos Aqui Para Você!
+                </h3>
+                <p className="max-w-2xl mx-auto mb-8 text-lg text-blue-100">
+                  Nossa equipe está disponível 24 horas para atender suas necessidades de emergência e transporte médico. Não hesite em nos contatar.
+                </p>
+                <a 
+                  href="#contato" 
+                  className="inline-block bg-accent-red text-white px-10 py-4 rounded-full font-bold text-lg uppercase tracking-wider transition-all duration-300 transform hover:bg-red-600 hover:scale-110 hover:shadow-2xl active:scale-100"
+                >
+                  Entre em Contato
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
