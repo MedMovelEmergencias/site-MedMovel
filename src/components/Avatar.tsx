@@ -1,22 +1,22 @@
-// Caminho: src/components/Hero/Avatar.tsx
+// Avatar animado com sequência de mensagens automática
+// POSIÇÃO: fixed bottom-left, visibilidade controlada pelo App.tsx
 import React, { useState, useEffect } from 'react';
 import Lottie from 'lottie-react';
 import doctorAnimation from '../assets/animations/doctor-animation.json';
 
+// Mensagens mostradas em sequência (uma vez apenas)
 const mensagensAvatar = [
-  { id: 1, texto: "Olá! Bem-vindo à Med Móvel! 👋", duracao: 5000 },
-  { id: 2, texto: "Somos especialistas em atendimento pré-hospitalar há mais de 10 anos! 🚑", duracao: 6000 },
-  { id: 3, texto: "Nossa equipe está disponível 24h para emergências e transporte médico.", duracao: 6500 },
-  { id: 4, texto: "Precisa de ajuda? Fale conosco! Nossa prioridade é cuidar de você. ❤️", duracao: 7000 }
+  { id: 1, texto: "Olá! Bem-vindo à Med Móvel! 👋", duracao: 4000 },
+  { id: 2, texto: "Somos especialistas em atendimento pré-hospitalar há mais de 10 anos! 🚑", duracao: 5000 },
+  { id: 3, texto: "Nossa equipe está disponível 24h para emergências e transporte médico.", duracao: 5500 },
+  { id: 4, texto: "Precisa de ajuda? Fale conosco! Nossa prioridade é cuidar de você. ❤️", duracao: 6000 }
 ];
 
-// Este componente agora não tem mais lógica de visibilidade.
-// Ele apenas se exibe e gerencia suas mensagens.
 const Avatar: React.FC = () => {
   const [mensagemAtual, setMensagemAtual] = useState(0);
   const [animandoSaida, setAnimandoSaida] = useState(false);
 
-  // Lógica de sequência de mensagens que roda uma única vez
+  // Controla sequência automática de mensagens (executa uma vez)
   useEffect(() => {
     if (mensagemAtual >= mensagensAvatar.length - 1) {
       return; // Para na última mensagem
