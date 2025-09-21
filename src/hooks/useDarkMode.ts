@@ -1,34 +1,95 @@
 // Caminho: src/hooks/useDarkMode.ts
-import { useState, useEffect } from 'react';
+// Hook otimizado para gerenciamento de tema com performance melhorada
+// Implementa persistência, detecção de preferência do sistema e transições suaves
+import { useState, useEffect, useCallback } from 'react';
+import type { Theme } from '../types';
+import { LOCAL_STORAGE_KEYS } from '../constants';
+import { prefersDarkMode } from '../utils';
 
-export function useDarkMode() {
-  // Inicializa o estado lendo o localStorage, com 'light' como padrão.
-  const [theme, setTheme] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('theme') || 'light';
+interface UseDarkModeReturn {
+  theme: Theme;
+  toggleTheme: () => void;
+  setTheme: (theme: Theme) => void;
+  systemPreference: Theme;
+}
+
+export function useDarkMode(): UseDarkModeReturn {
+  // Detecta preferência do sistema uma única vez
+  const systemPreference: Theme = prefersDarkMode() ? 'dark' : 'light';
+  
+  // Inicializa tema com base no localStorage ou preferência do sistema
+  const [theme, setThemeState] = useState<Theme>(() => {
+    if (typeof window === 'undefined') return systemPreference;
+    
+    try {
+      const savedTheme = localStorage.getItem(LOCAL_STORAGE_KEYS.theme) as Theme;
+      return savedTheme || systemPreference;
+    } catch {
+      return systemPreference;
     }
-    return 'light';
   });
 
-  // Função para alternar o tema.
-  const toggleTheme = () => {
-    setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'));
-  };
-
-  // Efeito que aplica/remove a classe .dark e salva a preferência.
-  useEffect(() => {
-    const root = window.document.documentElement;
+  // Função otimizada para aplicar tema no DOM
+  const applyTheme = useCallback((newTheme: Theme) => {
+    const root = document.documentElement;
     
-    // Lógica corrigida: Adiciona a classe .dark se o tema for dark,
-    // e garante que ela seja removida se o tema for light.
-    if (theme === 'dark') {
-      root.classList.add('dark');
-    } else {
-      root.classList.remove('dark');
-    }
+    // Remove classe anterior e adiciona nova com transição suave
+    root.classList.remove('light', 'dark');
+    
+    // Pequeno delay para garantir transição suave
+    setTimeout(() => {
+      root.classList.add(newTheme);
+      
+      // Persiste tema no localStorage
+      try {
+        localStorage.setItem(LOCAL_STORAGE_KEYS.theme, newTheme);
+      } catch (error) {
+        console.warn('Não foi possível salvar tema no localStorage:', error);
+      }
+    }, 16); // 16ms ≈ 1 frame de animação a 60fps
+  }, []);
 
-    localStorage.setItem('theme', theme);
+  // Função para alternar tema
+  const toggleTheme = useCallback(() => {
+    const newTheme: Theme = theme === 'light' ? 'dark' : 'light';
+    setThemeState(newTheme);
   }, [theme]);
 
-  return { theme, toggleTheme };
+  // Função para definir tema específico
+  const setTheme = useCallback((newTheme: Theme) => {
+    setThemeState(newTheme);
+  }, []);
+
+  // Effect para aplicar tema quando mudança ocorre
+  useEffect(() => {
+    applyTheme(theme);
+  }, [theme, applyTheme]);
+
+  // Effect para escutar mudanças na preferência do sistema
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    
+    const handleChange = (e: MediaQueryListEvent) => {
+      // Só atualiza se não há tema salvo no localStorage
+      const savedTheme = localStorage.getItem(LOCAL_STORAGE_KEYS.theme);
+      if (!savedTheme) {
+        const newSystemPreference: Theme = e.matches ? 'dark' : 'light';
+        setThemeState(newSystemPreference);
+      }
+    };
+
+    // Adiciona listener para mudanças na preferência do sistema
+    mediaQuery.addEventListener('change', handleChange);
+    
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+
+  return {
+    theme,
+    toggleTheme,
+    setTheme,
+    systemPreference,
+  };
 }
