@@ -2,6 +2,7 @@
 // Define classes utilitárias, cores personalizadas e configurações de build
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: 'class', // Habilita modo escuro via classe CSS
   // Define quais arquivos o Tailwind deve escanejar para gerar CSS otimizado
   content: [
     "./index.html", // Arquivo HTML principal
