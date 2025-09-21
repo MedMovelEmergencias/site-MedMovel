@@ -1,4 +1,5 @@
-// Caminho: src/components/Header.tsx
+// Header fixo no topo com navegação responsiva e theme switcher
+// Menu mobile: hambúrguer que abre/fecha menu vertical
 import React, { useState } from 'react';
 import logo from '../assets/images/AF_logo_med_emergencias.png'; 
 import ThemeSwitcher from './ThemeSwitcher';
@@ -6,6 +7,7 @@ import ThemeSwitcher from './ThemeSwitcher';
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  // Links de navegação (atualizar aqui para adicionar/remover seções)
   const navItems = [
     { href: '#home', label: 'Home' },
     { href: '#sobre', label: 'Sobre Nós' },

@@ -1,9 +1,9 @@
-// Caminho: src/components/Hero/Hero.tsx
-import React, { forwardRef } from 'react';
-
+// Caminho: src/components/Hero.tsx
+// Componente Hero otimizado com forwardRef para detecção de visibilidade
+import { forwardRef } from 'react';
 import heroBackgroundImage from '../assets/images/hero-background.jpg';
 
-const Hero = forwardRef<HTMLElement>((props, ref) => {
+const Hero = forwardRef<HTMLElement>((_props, ref) => {
     return (
         <section
             ref={ref}
