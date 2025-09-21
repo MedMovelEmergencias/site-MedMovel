@@ -1,34 +1,91 @@
-// Caminho: src/App.tsx
-import React, { useRef } from 'react';
+// Componente principal - Estrutura da aplicação com lazy loading
+// IMPORTANTE: Avatar é controlado por scroll (desaparece após 100px)
+import { useRef, lazy, Suspense, useState, useEffect } from 'react';
+
+// Carregamento imediato para componentes críticos
 import Header from './components/Header';
 import Hero from './components/Hero';
-import SobreNos from './components/SobreNos';
-import Servicos from './components/Servicos';
-import Contato from './components/Contato';
-import Footer from './components/Footer';
-import Avatar from './components/Avatar';
 
-import { useInView } from './hooks/useInView';
+// Lazy loading para componentes não-críticos (melhor performance)
+const SobreNos = lazy(() => import('./components/SobreNos'));
+const Servicos = lazy(() => import('./components/Servicos'));
+const Contato = lazy(() => import('./components/Contato'));
+const Footer = lazy(() => import('./components/Footer'));
+const Avatar = lazy(() => import('./components/Avatar'));
+
+// Loading spinner padrão para Suspense
+const LoadingFallback = () => (
+  <div className="flex items-center justify-center py-12">
+    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-blue dark:border-white"></div>
+  </div>
+);
 
 function App() {
-  // A referência que vamos observar é a própria seção Hero
   const heroRef = useRef<HTMLElement>(null);
-  // O hook nos dirá se a seção Hero está visível
-  const isHeroVisible = useInView(heroRef);
+  
+  // Controla visibilidade do Avatar baseado no scroll
+  const [showAvatar, setShowAvatar] = useState(true);
+
+  // LÓGICA DO AVATAR: Esconde após 100px de scroll, reaparece no topo
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+    
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      
+      if (scrollY > 100) {
+        setShowAvatar(false);
+      } else {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+          setShowAvatar(true);
+        }, 100);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      clearTimeout(timeoutId);
+    };
+  }, []);
 
   return (
     <>
+      <title>Med Móvel Emergências - Atendimento Pré-Hospitalar 24h</title>
+      
       <Header />
-      <main>
-        {/* Passamos a referência diretamente para o componente Hero */}
+      
+      <main role="main">
+        {/* Hero carregado imediatamente */}
         <Hero ref={heroRef} />
-        <SobreNos />
-        <Servicos />
-        <Contato />
+        
+        {/* Demais seções com lazy loading */}
+        <Suspense fallback={<LoadingFallback />}>
+          <SobreNos />
+        </Suspense>
+        
+        <Suspense fallback={<LoadingFallback />}>
+          <Servicos />
+        </Suspense>
+        
+        <Suspense fallback={<LoadingFallback />}>
+          <Contato />
+        </Suspense>
       </main>
-      <Footer />
-      {/* O Avatar só será renderizado se a seção Hero estiver visível */}
-      {isHeroVisible && <Avatar />}
+      
+      {/* Footer com lazy loading */}
+      <Suspense fallback={<LoadingFallback />}>
+        <Footer />
+      </Suspense>
+      
+      {/* Avatar: visível apenas no topo (esconde após 100px de scroll) */}
+      {showAvatar && (
+        <Suspense fallback={null}>
+          <Avatar />
+        </Suspense>
+      )}
     </>
   );
 }
