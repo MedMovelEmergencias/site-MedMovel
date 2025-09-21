@@ -2,12 +2,81 @@
 <html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="src/assets/images/AF_logo_med_emergencias.png" />
+    
+    <!-- Meta tags essenciais para SEO e performance -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Med Móvel Emergências</title>
+    <meta name="description" content="Med Móvel Emergências - Atendimento pré-hospitalar 24 horas com ambulâncias modernas e equipe especializada. Mais de 10 anos salvando vidas em São Paulo." />
+    <meta name="keywords" content="ambulância, emergência, atendimento pré-hospitalar, transporte médico, UTI móvel, São Paulo, 24 horas" />
+    <meta name="author" content="Med Móvel Emergências" />
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Open Graph para redes sociais -->
+    <meta property="og:title" content="Med Móvel Emergências - Atendimento Pré-Hospitalar 24h" />
+    <meta property="og:description" content="Especialistas em atendimento pré-hospitalar há mais de 10 anos. Ambulâncias modernas e equipe qualificada disponível 24h." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://medmovel.com.br" />
+    <meta property="og:image" content="/src/assets/images/AF_logo_med_emergencias.png" />
+    <meta property="og:locale" content="pt_BR" />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Med Móvel Emergências - Atendimento Pré-Hospitalar 24h" />
+    <meta name="twitter:description" content="Especialistas em atendimento pré-hospitalar há mais de 10 anos. Ambulâncias modernas e equipe qualificada disponível 24h." />
+    <meta name="twitter:image" content="/src/assets/images/AF_logo_med_emergencias.png" />
+    
+    <!-- Favicon otimizado -->
+    <link rel="icon" type="image/png" href="/src/assets/images/AF_logo_med_emergencias.png" />
+    <link rel="apple-touch-icon" href="/src/assets/images/AF_logo_med_emergencias.png" />
+    
+    <!-- Preload de recursos críticos -->
+    <link rel="preload" as="font" href="/fonts/inter.woff2" type="font/woff2" crossorigin />
+    
+    <!-- DNS prefetch para recursos externos -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+    
+    <!-- Theme color para PWA -->
+    <meta name="theme-color" content="#0A2B63" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1F2937" media="(prefers-color-scheme: dark)" />
+    
+    <!-- Título otimizado para SEO -->
+    <title>Med Móvel Emergências - Atendimento Pré-Hospitalar 24h | Ambulâncias UTI São Paulo</title>
+    
+    <!-- Schema.org JSON-LD para melhor SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MedicalBusiness",
+      "name": "Med Móvel Emergências",
+      "description": "Atendimento pré-hospitalar 24 horas com ambulâncias modernas e equipe especializada",
+      "url": "https://medmovel.com.br",
+      "telephone": "+55-11-91234-5678",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "São Paulo",
+        "addressRegion": "SP",
+        "addressCountry": "BR"
+      },
+      "medicalSpecialty": "Emergency Medicine",
+      "priceRange": "$$$",
+      "openingHours": "Mo,Tu,We,Th,Fr,Sa,Su 00:00-23:59"
+    }
+    </script>
   </head>
   <body>
+    <!-- Container principal da aplicação -->
     <div id="root"></div>
+    
+    <!-- Script principal da aplicação -->
     <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Fallback para usuários sem JavaScript -->
+    <noscript>
+      <div style="text-align: center; padding: 50px; font-family: Arial, sans-serif;">
+        <h1>Med Móvel Emergências</h1>
+        <p>Para melhor experiência, por favor habilite o JavaScript em seu navegador.</p>
+        <p>Entre em contato: (11) 91234-5678</p>
+      </div>
+    </noscript>
   </body>
 </html>
