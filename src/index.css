@@ -1,3 +1,138 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Animações personalizadas para o avatar e balões de mensagem */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+@keyframes gentleFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes softGlow {
+  0%, 100% {
+    box-shadow: 0 20px 40px -12px rgba(59, 130, 246, 0.15);
+  }
+  50% {
+    box-shadow: 0 25px 50px -12px rgba(59, 130, 246, 0.25);
+  }
+}
+
+/* Classes utilitárias para as animações */
+.animate-fadeInUp {
+  animation: fadeInUp 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.animate-bounceIn {
+  animation: bounceIn 0.8s ease-out forwards;
+}
+
+.animate-fadeInScale {
+  animation: fadeInScale 0.4s ease-out forwards;
+}
+
+.animate-breathe {
+  animation: breathe 3s ease-in-out infinite;
+}
+
+.animate-gentleFloat {
+  animation: gentleFloat 4s ease-in-out infinite;
+}
+
+.animate-softGlow {
+  animation: softGlow 3s ease-in-out infinite;
+}
+
+/* Sombra extra para hover */
+.hover\:shadow-3xl:hover {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Escala sutil para hover */
+.hover\:scale-102:hover {
+  transform: scale(1.02);
+}
+
+section[id="home"] {
+  scroll-margin-top: 100px; 
+}
+
+/* Aplica a margem de rolagem a todas as seções com ID, EXCETO a primeira (#home) */
+section[id]:not(#home) {
+  scroll-margin-top: 25px;
+}
+
+@layer utilities {
+  .animate-fade-in-up {
+    animation: fade-in-up 0.5s ease-out forwards;
+  }
+
+  @layer utilities {
+  @keyframes shimmer {
+    100% {
+      transform: translateX(250%);
+    }
+  }
+}
+
+/* Definição da animação fade-in-up */
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
