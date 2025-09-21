@@ -1,12 +1,12 @@
 // Caminho: src/App.tsx
 import React, { useRef } from 'react';
-import Header from './components/Header/Header';
-import Hero from './components/Hero/Hero';
+import Header from './components/Header';
+import Hero from './components/Hero';
 import SobreNos from './components/SobreNos';
 import Servicos from './components/Servicos';
 import Contato from './components/Contato';
-import Footer from './components/Footer/Footer';
-import Avatar from './components/Hero/Avatar';
+import Footer from './components/Footer';
+import Avatar from './components/Avatar';
 
 import { useInView } from './hooks/useInView';
 
