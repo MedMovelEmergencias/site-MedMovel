@@ -1,38 +1,36 @@
 // Caminho: src/App.tsx
-// Componente principal da aplicação que estrutura o layout da página
-import React from 'react';
+import React, { useRef } from 'react';
 import Header from './components/Header/Header';
 import Hero from './components/Hero/Hero';
 import SobreNos from './components/SobreNos';
 import Servicos from './components/Servicos';
 import Contato from './components/Contato';
 import Footer from './components/Footer/Footer';
+import Avatar from './components/Hero/Avatar';
+
+import { useInView } from './hooks/useInView';
 
 function App() {
+  // A referência que vamos observar é a própria seção Hero
+  const heroRef = useRef<HTMLElement>(null);
+  // O hook nos dirá se a seção Hero está visível
+  const isHeroVisible = useInView(heroRef);
+
   return (
     <>
-      {/* Cabeçalho fixo com navegação e logo */}
       <Header />
-      
-      {/* Conteúdo principal da página */}
       <main>
-        {/* Seção hero com banner principal */}
-        <Hero />
-        
-        {/* Seção sobre a empresa */}
+        {/* Passamos a referência diretamente para o componente Hero */}
+        <Hero ref={heroRef} />
         <SobreNos />
-        
-        {/* Seção de serviços oferecidos */}
         <Servicos />
-        
-        {/* Seção de contato e localização */}
         <Contato />
       </main>
-      
-      {/* Rodapé com informações da empresa */}
       <Footer />
+      {/* O Avatar só será renderizado se a seção Hero estiver visível */}
+      {isHeroVisible && <Avatar />}
     </>
-  )
+  );
 }
 
 export default App;
