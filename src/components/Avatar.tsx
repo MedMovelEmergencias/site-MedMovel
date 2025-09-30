@@ -34,7 +34,7 @@ const Avatar: React.FC = () => {
   const messageTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   const isDesktopView = () => window.innerWidth >= DESKTOP_BREAKPOINT;
-  
+
   const getActiveVideo = () => {
     return isDesktopView() ? desktopVideoRef.current : mobileVideoRef.current;
   };
@@ -58,7 +58,7 @@ const Avatar: React.FC = () => {
     setIsSequenceCompleted(true);
     setIsVideoPlaying(false);
     setShowClickPrompt(true);
-    
+
     const activeVideo = getActiveVideo();
     if (activeVideo) resetVideoToStart(activeVideo);
   };
@@ -70,7 +70,7 @@ const Avatar: React.FC = () => {
 
   const handleMessageTimeout = () => {
     setIsAnimatingOut(true);
-    
+
     setTimeout(() => {
       if (isLastMessage()) {
         completeSequence();
@@ -165,7 +165,7 @@ const Avatar: React.FC = () => {
   const synchronizeVideosOnResize = () => {
     const mobileVideo = mobileVideoRef.current;
     const desktopVideo = desktopVideoRef.current;
-    
+
     if (!isVideoPlaying || !mobileVideo || !desktopVideo) return;
 
     const isDesktop = isDesktopView();
@@ -173,11 +173,11 @@ const Avatar: React.FC = () => {
     const targetVideo = isDesktop ? desktopVideo : mobileVideo;
 
     targetVideo.currentTime = sourceVideo.currentTime;
-    
+
     if (!isVideoPaused) {
       targetVideo.play().catch(console.log);
     }
-    
+
     sourceVideo.pause();
   };
 
@@ -208,29 +208,23 @@ const Avatar: React.FC = () => {
             src={nurseAvatar}
             className="w-full h-full"
             playsInline
-            muted={false}
-            preload="auto"
             webkit-playsinline="true"
+            loop
             controls={false}
             disablePictureInPicture
             onClick={handleVideoClick}
             style={{
-              background: 'transparent',
+              backgroundColor: 'transparent',
               objectFit: 'contain',
-              objectPosition: 'center',
-              WebkitTransform: 'translateZ(0)',
-              transform: 'translateZ(0)',
-              backfaceVisibility: 'hidden',
-              willChange: 'auto'
+              objectPosition: 'center'
             }}
           />
         </div>
 
         {showMessage && (
-          <div 
-            className={`absolute transition-all duration-500 ease-in-out ${
-              isAnimatingOut ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
-            }`}
+          <div
+            className={`absolute transition-all duration-500 ease-in-out ${isAnimatingOut ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
+              }`}
             style={{
               left: 'calc(100% + 6px)',
               top: '25%',
@@ -247,7 +241,7 @@ const Avatar: React.FC = () => {
         )}
 
         {showClickPrompt && !showMessage && (
-          <div 
+          <div
             className="absolute transition-all duration-500 ease-in-out opacity-100 scale-100"
             style={{
               left: 'calc(100% + 6px)',
