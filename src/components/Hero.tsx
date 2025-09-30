@@ -2,6 +2,7 @@
 // Componente Hero otimizado com forwardRef para detecção de visibilidade
 import { forwardRef } from 'react';
 import heroBackgroundImage from '../assets/images/hero-background.jpg';
+import Avatar from './Avatar';
 
 const Hero = forwardRef<HTMLElement>((_props, ref) => {
     return (
@@ -37,6 +38,9 @@ const Hero = forwardRef<HTMLElement>((_props, ref) => {
                   Entre em Contato
                 </a>
             </div>
+
+            {/* Avatar integrado à seção home */}
+            <Avatar />
         </section>
     );
 });
