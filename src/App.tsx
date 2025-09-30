@@ -1,6 +1,6 @@
 // Componente principal - Estrutura da aplicação com lazy loading
 // IMPORTANTE: Avatar é controlado por scroll (desaparece após 100px)
-import { useRef, lazy, Suspense, useState, useEffect } from 'react';
+import { useRef, lazy, Suspense } from 'react';
 
 // Carregamento imediato para componentes críticos
 import Header from './components/Header';
@@ -11,7 +11,6 @@ const SobreNos = lazy(() => import('./components/SobreNos'));
 const Servicos = lazy(() => import('./components/Servicos'));
 const Contato = lazy(() => import('./components/Contato'));
 const Footer = lazy(() => import('./components/Footer'));
-const Avatar = lazy(() => import('./components/Avatar'));
 
 // Loading spinner padrão para Suspense
 const LoadingFallback = () => (
@@ -22,34 +21,6 @@ const LoadingFallback = () => (
 
 function App() {
   const heroRef = useRef<HTMLElement>(null);
-  
-  // Controla visibilidade do Avatar baseado no scroll
-  const [showAvatar, setShowAvatar] = useState(true);
-
-  // LÓGICA DO AVATAR: Esconde após 100px de scroll, reaparece no topo
-  useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
-    
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      
-      if (scrollY > 100) {
-        setShowAvatar(false);
-      } else {
-        clearTimeout(timeoutId);
-        timeoutId = setTimeout(() => {
-          setShowAvatar(true);
-        }, 100);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      clearTimeout(timeoutId);
-    };
-  }, []);
 
   return (
     <>
@@ -79,13 +50,6 @@ function App() {
       <Suspense fallback={<LoadingFallback />}>
         <Footer />
       </Suspense>
-      
-      {/* Avatar: visível apenas no topo (esconde após 100px de scroll) */}
-      {showAvatar && (
-        <Suspense fallback={null}>
-          <Avatar />
-        </Suspense>
-      )}
     </>
   );
 }
