@@ -1,5 +1,5 @@
 ﻿import React, { useState, useEffect, useRef } from 'react';
-import nurseAvatar from '../assets/video/nurse-avatar.webm';
+import nurseAvatar from '../assets/video/main-avatar.webm';
 
 interface AvatarMessage {
   id: number;
@@ -202,7 +202,7 @@ const Avatar: React.FC = () => {
     <div className="absolute bottom-0 left-4 sm:left-6 md:left-8 lg:left-12 z-30">
       {/* Mobile/Tablet Layout */}
       <div className="lg:hidden relative">
-        <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-40 md:h-40 transition-transform duration-300 hover:scale-105 cursor-pointer">
+        <div className="w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 transition-transform duration-300 hover:scale-105 cursor-pointer">
           <video
             ref={mobileVideoRef}
             src={nurseAvatar}
