@@ -205,7 +205,6 @@ const Avatar: React.FC = () => {
         <div className="w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 transition-transform duration-300 hover:scale-105 cursor-pointer">
           <video
             ref={mobileVideoRef}
-            src={nurseAvatar}
             className="w-full h-full"
             playsInline
             webkit-playsinline="true"
@@ -218,7 +217,20 @@ const Avatar: React.FC = () => {
               objectFit: 'contain',
               objectPosition: 'center'
             }}
-          />
+          >
+            <source 
+              src={nurseAvatar} 
+              type="video/webm" 
+              media="(min-width: 768px)"
+            />
+            <source 
+              src={nurseAvatar} 
+              type="video/webm" 
+              media="(max-width: 767px)"
+            />
+            {/* Fallback para navegadores que não suportam WebM */}
+            <p>Seu navegador não suporta vídeos HTML5.</p>
+          </video>
         </div>
 
         {showMessage && (
@@ -264,7 +276,6 @@ const Avatar: React.FC = () => {
         <div className="w-56 h-56 transition-transform duration-300 hover:scale-105 cursor-pointer">
           <video
             ref={desktopVideoRef}
-            src={nurseAvatar}
             className="w-full h-full"
             playsInline
             muted={false}
@@ -275,7 +286,15 @@ const Avatar: React.FC = () => {
               objectFit: 'contain',
               objectPosition: 'center'
             }}
-          />
+          >
+            <source 
+              src={nurseAvatar} 
+              type="video/webm" 
+              media="(min-width: 1024px)"
+            />
+            {/* Fallback para navegadores que não suportam WebM */}
+            <p>Seu navegador não suporta vídeos HTML5.</p>
+          </video>
         </div>
 
         {showMessage && (
