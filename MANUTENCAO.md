@@ -15,6 +15,12 @@
 - **Componentes lazy**: SobreNos, Servicos, Contato, Footer, Avatar
 - **Crítico**: Header e Hero carregam imediatamente (performance)
 
+#### **Scroll Reveal Animations**
+- **Hook principal**: `src/hooks/useScrollReveal.ts`
+- **Wrapper reutilizável**: `src/components/ScrollRevealWrapper.tsx`
+- **Biblioteca**: Framer Motion v12.23.22
+- **Variantes disponíveis**: fadeInUp, fadeInLeft, fadeInRight, fadeInDown, scaleIn, bounceIn
+
 ### 📁 Estrutura de Arquivos Importantes
 
 ```
@@ -24,15 +30,19 @@ src/
 ├── types/index.ts         # Tipos TypeScript centralizados
 ├── utils/index.ts         # Funções reutilizáveis
 ├── hooks/
-│   └── useInView.ts       # Detecção de visibilidade (Intersection Observer)
+│   ├── useInView.ts       # Detecção de visibilidade (Intersection Observer)
+│   ├── useScrollReveal.ts # Hook para animações de scroll
+│   └── useContactForm.ts  # Lógica do formulário de contato
 └── components/
     ├── Avatar.tsx         # Assistente virtual com mensagens
-    ├── Header.tsx         # Navegação responsiva
+    ├── Header.tsx         # Navegação responsiva com detecção de seção ativa
     ├── Hero.tsx           # Seção principal (topo)
     ├── SobreNos.tsx      # Seção sobre a empresa
     ├── Servicos.tsx      # Seções de serviços
-    ├── Contato.tsx       # Formulário e informações
-    └── Footer.tsx        # Rodapé
+    ├── Contato.tsx       # Formulário e informações (refatorado)
+    ├── ContactButton.tsx # Botão reutilizável para formulário
+    ├── Footer.tsx        # Rodapé
+    └── ScrollRevealWrapper.tsx # Wrapper para animações
 ```
 
 ### ⚙️ Configurações Principais
@@ -40,17 +50,34 @@ src/
 #### **Informações da Empresa** (`src/constants/index.ts`)
 ```typescript
 export const CONTACT_INFO = {
-  phone: '(11) 91234-5678',          // ← ATUALIZAR TELEFONE
-  email: 'contato@medmovel.com.br',  // ← ATUALIZAR EMAIL
-  address: 'São Paulo, SP',          // ← ATUALIZAR ENDEREÇO
-  instagram: 'https://...',          // ← ATUALIZAR INSTAGRAM
+  phone: '(11) 93279-1974',                    // ← ATUALIZAR TELEFONE
+  phoneWhatsApp: '5511932791974',              // ← Formato WhatsApp
+  email: 'contato@medmovelemergencias.com.br', // ← ATUALIZAR EMAIL
+  address: {                                   // ← ATUALIZAR ENDEREÇO
+    street: 'Rua Domingos De Morais, 2132',
+    district: 'Vila Mariana, São Paulo - SP',
+    full: 'Rua Domingos De Morais, 2132, Vila Mariana, São Paulo - SP'
+  },
+  instagram: 'https://...',                    // ← ATUALIZAR INSTAGRAM
 };
 
 export const COMPANY_INFO = {
   name: 'Med Móvel Emergências',
-  founded: 2010,                     // ← ATUALIZAR ANO FUNDAÇÃO
-  slogan: 'Cuidado e Agilidade...',  // ← ATUALIZAR SLOGAN
+  founded: 2010,                               // ← ATUALIZAR ANO FUNDAÇÃO
+  experience: new Date().getFullYear() - 2010, // ← Calcula automaticamente
+  slogan: 'Cuidado e Agilidade...',            // ← ATUALIZAR SLOGAN
 };
+```
+
+#### **Navegação** (`src/constants/index.ts`)
+```typescript
+export const NAVIGATION_ITEMS = [
+  { href: '#home', label: 'Home', ariaLabel: 'Ir para seção inicial' },
+  { href: '#sobre', label: 'Sobre Nós', ariaLabel: 'Ir para seção sobre nós' },
+  { href: '#servicos', label: 'Serviços', ariaLabel: 'Ir para seção de serviços' },
+  { href: '#contato', label: 'Contato', ariaLabel: 'Ir para seção de contato' }
+  // ← Adicionar/remover seções aqui
+];
 ```
 
 #### **Mensagens do Avatar** (`src/constants/index.ts`)
@@ -62,17 +89,6 @@ export const AVATAR_MESSAGES = [
     duracao: 4000  // ← Tempo em millisegundos
   },
   // Adicionar/editar mensagens aqui
-];
-```
-
-#### **Links de Navegação** (`src/components/Header.tsx`)
-```typescript
-const navItems = [
-  { href: '#home', label: 'Home' },
-  { href: '#sobre', label: 'Sobre Nós' },
-  { href: '#servicos', label: 'Serviços' },
-  { href: '#contato', label: 'Contato' }
-  // ← Adicionar/remover seções aqui
 ];
 ```
 
@@ -92,7 +108,33 @@ npm run build
 npm run preview
 ```
 
-### 🎨 Personalização Visual
+### � Clean Code e Refatorações Implementadas
+
+#### **Hooks Customizados**
+- **`useContactForm.ts`**: Gerencia lógica do formulário de contato
+  - Validação centralizada
+  - Funções de envio (WhatsApp/Email)
+  - Estado isolado e reutilizável
+
+#### **Componentes Reutilizáveis**
+- **`ContactButton.tsx`**: Botão padronizado para formulários
+  - Props tipadas com TypeScript
+  - Variantes de estilo (whatsapp/email)
+  - Classes CSS consistentes
+
+#### **Constantes Centralizadas**
+- **Dados de contato**: Removido hardcoding, centralizados em `constants/index.ts`
+- **Navegação**: Links extraídos para `NAVIGATION_ITEMS`
+- **Informações da empresa**: Endereço estruturado e WhatsApp formatado
+
+#### **Melhores Práticas Aplicadas**
+- **Single Responsibility**: Cada componente tem uma responsabilidade clara
+- **DRY (Don't Repeat Yourself)**: Código duplicado extraído para funções/hooks
+- **Comentários JSDoc**: Documentação clara em funções importantes
+- **TypeScript**: Tipagem forte para maior segurança
+- **Separation of Concerns**: Lógica separada da apresentação
+
+### �🎨 Personalização Visual
 
 #### **Cores** (Tailwind CSS)
 - **Azul primário**: `text-primary-blue` / `bg-primary-blue`
