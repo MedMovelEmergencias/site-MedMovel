@@ -37,9 +37,14 @@ export const API_ENDPOINTS = {
 
 // INFORMAÇÕES DA EMPRESA - Atualizar aqui dados de contato e empresa
 export const CONTACT_INFO = {
-  phone: '(11) 91234-5678',
-  email: 'contato@medmovel.com.br',
-  address: 'São Paulo, SP',
+  phone: '(11) 93279-1974',
+  phoneWhatsApp: '5511932791974', // Formato para WhatsApp (sem parênteses e hífen)
+  email: 'contato@medmovelemergencias.com.br',
+  address: {
+    street: 'Rua Domingos De Morais, 2132',
+    district: 'Vila Mariana, São Paulo - SP',
+    full: 'Rua Domingos De Morais, 2132, Vila Mariana, São Paulo - SP'
+  },
   instagram: 'https://www.instagram.com/medmovelemergencias?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==',
 } as const;
 
