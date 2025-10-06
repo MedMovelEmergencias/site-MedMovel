@@ -2,6 +2,7 @@
 // Componente que exibe a seção de serviços oferecidos pela Med Móvel
 // Apresenta cards com ícones, descrições e call-to-action para cada serviço
 import React from 'react';
+import { ScrollRevealWrapper } from './ScrollRevealWrapper';
 
 // Importa ícones personalizados para representar visualmente cada serviço médico
 import HospitalIcon from '../assets/icons/HospitalIcon';
@@ -21,7 +22,7 @@ const listaDeServicos = [
   {
     icon: <HospitalIcon />,
     title: 'Remoção Inter-Hospitalar',
-    description: 'Transferência segura de pacientes entre hospitais e clínicas, com suporte médico contínuo durante todo o trajeto.',
+    description: 'Transferência segura de pacientes entre hospitais e clínicas, com suporte médico contínuo.',
     highlight: 'Transporte Seguro'
   },
   {
@@ -43,7 +44,7 @@ const Servicos: React.FC = () => {
   return (
     <section id="servicos" className="py-20 bg-white dark:bg-gray-800 transition-colors duration-300">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
+        <ScrollRevealWrapper variant="fadeInUp" className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-extrabold text-primary-blue dark:text-white mb-4">
             Nossos Serviços
           </h2>
@@ -51,36 +52,41 @@ const Servicos: React.FC = () => {
             Soluções completas em atendimento pré-hospitalar e transporte de pacientes, 
             adaptadas para cada necessidade com excelência e humanização.
           </p>
-        </div>
+        </ScrollRevealWrapper>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-10">
           {listaDeServicos.map((servico, index) => (
-            <div 
-              key={index} 
-              className="group bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-700 p-8 rounded-2xl shadow-lg transform transition-all duration-500 hover:shadow-2xl hover:scale-105 hover:-translate-y-2 relative overflow-hidden"
+            <ScrollRevealWrapper 
+              key={index}
+              variant={index % 2 === 0 ? "fadeInLeft" : "fadeInRight"}
+              delay={index * 0.1}
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform translate-x-[-100%] group-hover:translate-x-[100%]"></div>
-              <div className="relative z-10">
-                <div className="flex justify-center mb-6 transform transition-transform duration-300 group-hover:scale-110">
-                  {servico.icon}
-                </div>
-                <div className="text-center">
-                  <span className="inline-block px-3 py-1 bg-accent-red/10 text-accent-red text-xs font-semibold rounded-full mb-3">
-                    {servico.highlight}
-                  </span>
-                  <h3 className="text-xl font-bold text-primary-blue dark:text-blue-300 mb-4 group-hover:text-accent-red transition-colors duration-300">
-                    {servico.title}
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-sm">
-                    {servico.description}
-                  </p>
+              <div 
+                className="group bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-700 p-6 md:p-8 rounded-2xl shadow-lg transform transition-all duration-500 hover:shadow-2xl hover:scale-105 hover:-translate-y-2 relative overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform translate-x-[-100%] group-hover:translate-x-[100%]"></div>
+                <div className="relative z-10">
+                  <div className="flex justify-center mb-6 transform transition-transform duration-300 group-hover:scale-110">
+                    {servico.icon}
+                  </div>
+                  <div className="text-center">
+                    <span className="inline-block px-3 py-1 bg-accent-red/10 text-accent-red text-xs font-semibold rounded-full mb-3">
+                      {servico.highlight}
+                    </span>
+                    <h3 className="text-xl font-bold text-primary-blue dark:text-blue-300 mb-4 group-hover:text-accent-red transition-colors duration-300">
+                      {servico.title}
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-sm">
+                      {servico.description}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
+            </ScrollRevealWrapper>
           ))}
         </div>
 
-        <div className="mt-20">
+        <ScrollRevealWrapper variant="scaleIn" delay={0.5} className="mt-20">
           <div className="container mx-auto">
             <div className="relative rounded-2xl bg-gradient-to-r from-primary-blue via-blue-800 to-cyan-600 p-10 md:p-12 text-center text-white shadow-2xl overflow-hidden">
               <div className="absolute top-0 left-0 w-1/2 h-full bg-white/10 skew-x-[-30deg] -translate-x-full animate-[shimmer_4s_infinite]"></div>
@@ -100,7 +106,7 @@ const Servicos: React.FC = () => {
               </div>
             </div>
           </div>
-        </div>
+        </ScrollRevealWrapper>
       </div>
     </section>
   );
